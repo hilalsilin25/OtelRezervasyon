@@ -1,0 +1,11 @@
+C:\Users\Dell\source\repos\OtelRezervasyonu\OtelRezervasyonu\bin\Debug\OtelRezervasyonu.exe.config
+C:\Users\Dell\source\repos\OtelRezervasyonu\OtelRezervasyonu\bin\Debug\OtelRezervasyonu.exe
+C:\Users\Dell\source\repos\OtelRezervasyonu\OtelRezervasyonu\bin\Debug\OtelRezervasyonu.pdb
+C:\Users\Dell\source\repos\OtelRezervasyonu\OtelRezervasyonu\obj\Debug\OtelRezervasyonu.csproj.AssemblyReference.cache
+C:\Users\Dell\source\repos\OtelRezervasyonu\OtelRezervasyonu\obj\Debug\OtelRezervasyonu.Form1.resources
+C:\Users\Dell\source\repos\OtelRezervasyonu\OtelRezervasyonu\obj\Debug\OtelRezervasyonu.Properties.Resources.resources
+C:\Users\Dell\source\repos\OtelRezervasyonu\OtelRezervasyonu\obj\Debug\OtelRezervasyonu.csproj.GenerateResource.cache
+C:\Users\Dell\source\repos\OtelRezervasyonu\OtelRezervasyonu\obj\Debug\OtelRezervasyonu.csproj.CoreCompileInputs.cache
+C:\Users\Dell\source\repos\OtelRezervasyonu\OtelRezervasyonu\obj\Debug\OtelRezervasyonu.exe
+C:\Users\Dell\source\repos\OtelRezervasyonu\OtelRezervasyonu\obj\Debug\OtelRezervasyonu.pdb
+C:\Users\Dell\source\repos\OtelRezervasyonu\OtelRezervasyonu\obj\Debug\OtelRezervasyonu.Form2.resources
