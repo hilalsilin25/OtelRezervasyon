@@ -35,6 +35,7 @@
             textBox2 = new TextBox();
             btngiriş = new Button();
             pictureBox1 = new PictureBox();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -77,6 +78,7 @@
             // 
             textBox2.Location = new Point(429, 95);
             textBox2.Name = "textBox2";
+            textBox2.PasswordChar = '*';
             textBox2.Size = new Size(164, 27);
             textBox2.TabIndex = 4;
             textBox2.TextChanged += textBox2_TextChanged;
@@ -102,11 +104,21 @@
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(81, 255);
+            label4.Name = "label4";
+            label4.Size = new Size(50, 20);
+            label4.TabIndex = 7;
+            label4.Text = "label4";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1253, 583);
+            ClientSize = new Size(760, 366);
+            Controls.Add(label4);
             Controls.Add(pictureBox1);
             Controls.Add(btngiriş);
             Controls.Add(textBox2);
@@ -115,7 +127,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "Form1";
-            Text = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Giriş";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -131,5 +144,6 @@
         private TextBox textBox2;
         private Button btngiriş;
         private PictureBox pictureBox1;
+        private Label label4;
     }
 }
