@@ -1,4 +1,5 @@
 using System;
+using System.Drawing.Drawing2D;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -8,6 +9,8 @@ namespace OtelRezervasyon
 {
     public partial class Form1 : Form
     {
+
+
         public Form1()
         {
             InitializeComponent();
@@ -15,8 +18,33 @@ namespace OtelRezervasyon
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+           
             await HavaDurumuGetir("Igdir"); // Türkçe karakter sorununa karþý 'Igdir' kullanýyoruz
-        }
+                                            // Form arka plan rengini kýrmýzý yapalým
+            this.BackColor = Color.FromArgb(220, 20, 60);
+
+            // Buton rengini ve yazý rengini ayarlayalým (örnek: btngiriþ)
+            btngiriþ.BackColor = Color.White;
+            btngiriþ.ForeColor = Color.FromArgb(192, 0, 0);
+            btngiriþ.FlatStyle = FlatStyle.Flat;
+            btngiriþ.FlatAppearance.BorderColor = Color.White;
+
+            // Label renklerini beyaz yapalým
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is Label)
+                {
+                    ctrl.ForeColor = Color.White;
+                }
+                else if (ctrl is TextBox)
+                {
+                    ctrl.BackColor = Color.White;
+                    ctrl.ForeColor = Color.FromArgb(192, 0, 0);
+                }
+            }
+
+           
+    }
 
         private async Task HavaDurumuGetir(string sehir)
         {
@@ -64,6 +92,11 @@ namespace OtelRezervasyon
             Form2 form2 = new Form2();
             form2.Show();
             this.Hide();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

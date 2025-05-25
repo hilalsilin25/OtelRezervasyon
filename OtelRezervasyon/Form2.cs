@@ -1,19 +1,33 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using OtelRezervasyon;
 namespace OtelRezervasyon
 {
     public partial class Form2 : Form
     {
         private readonly string connectionString = "Server=HILAL\\SQLEXPRESS;Database=OtelRezervasyonDB;Integrated Security=True";
+        private object comboIlce;
+
+        private readonly string apiBaseUrl = "http://localhost:5000/api"; // API adresi
+        private readonly HttpClient httpClient = new HttpClient();
+
 
         public Form2()
         {
             InitializeComponent();
+            // Load olayına handler ekle
+            this.Load += Form2_Load;
         }
+
+
 
         private async void btnEkle_Click(object sender, EventArgs e)
         {
@@ -41,16 +55,23 @@ namespace OtelRezervasyon
                         command.Parameters.AddWithValue("@Adres", textAdres.Text);
                         command.Parameters.AddWithValue("@Email", textEmail.Text);
 
+
                         await command.ExecuteNonQueryAsync(); // <-- Async çalışıyoruz!
 
                         MessageBox.Show("Kayıt başarıyla eklendi!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Hata: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+
+
+
         }
 
         private async void btnSil_Click(object sender, EventArgs e)
@@ -162,5 +183,57 @@ namespace OtelRezervasyon
             kayıt.Show(); // Form2'yi aç
             this.Hide(); // Form1'i gizle (eğer tamamen kapanmasını istiyorsan this.Close() kullanabilirsin)
         }
+
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            this.BackColor = Color.FromArgb(220, 20, 60);
+            // Label'ların rengi beyaz olsun:
+            label1.ForeColor = Color.White;
+            label2.ForeColor = Color.White;
+            label3.ForeColor = Color.White;
+            label4.ForeColor = Color.White;
+            label5.ForeColor = Color.White;
+            label6.ForeColor = Color.White;
+            label7.ForeColor = Color.White;
+
+            // DataGridView ayarları:
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.BackgroundColor = Color.White; // Beyaz arka plan
+            dataGridView1.DefaultCellStyle.BackColor = Color.White;
+            dataGridView1.DefaultCellStyle.ForeColor = Color.Red;
+            dataGridView1.DefaultCellStyle.SelectionBackColor = Color.DarkRed;
+            dataGridView1.DefaultCellStyle.SelectionForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.Red;
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(255, 230, 230); // Açık kırmızı ton
+            dataGridView1.GridColor = Color.Red;
+        }
+
+        private void Sonraki_Click(object sender, EventArgs e)
+        {
+            // Form2'deki bilgileri alıyoruz
+            string ad = textAd.Text;
+            string soyad = textSoyad.Text;
+            string telefon = textTelefon.Text;
+            string email = textEmail.Text;
+
+            // Form3'e veri aktarma
+            Form3 form3 = new Form3(ad, soyad, telefon, email);
+            form3.Show();
+            this.Hide();  // Form2'yi gizle
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Hide(); //Form1'i aç
+        }
     }
 }
+
+        
+

@@ -1,3 +1,7 @@
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Windows.Forms;
+using Microsoft.Extensions.Configuration;
 namespace OtelRezervasyon
 {
     internal static class Program

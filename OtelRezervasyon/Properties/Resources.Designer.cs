@@ -63,9 +63,59 @@ namespace OtelRezervasyon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _12366377 {
+            get {
+                object obj = ResourceManager.GetObject("12366377", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon {
             get {
                 object obj = ResourceManager.GetObject("icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap resim2 {
+            get {
+                object obj = ResourceManager.GetObject("resim2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap resim3 {
+            get {
+                object obj = ResourceManager.GetObject("resim3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap src_340x1912xen_iyi_hava_durumu_uygulamasi_onerileri {
+            get {
+                object obj = ResourceManager.GetObject("src_340x1912xen-iyi-hava-durumu-uygulamasi-onerileri", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tahmin_show_2 {
+            get {
+                object obj = ResourceManager.GetObject("tahmin-show-2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

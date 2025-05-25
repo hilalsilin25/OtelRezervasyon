@@ -8,7 +8,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using iTextSharp.text.pdf.draw;
 using System.Windows.Forms;
+using System.IO;
 
 namespace OtelRezervasyon
 {
@@ -17,134 +19,149 @@ namespace OtelRezervasyon
         public kayıt()
         {
             InitializeComponent();
-
         }
-       
+
         private void kayıt_Load(object sender, EventArgs e)
         {
-            // DataGridView'e isim, soyisim ve takım sütunlarını ekleyelim
+            // Sütunları ekleyelim
             dataGridView1.Columns.Add("Otel", "Otel");
             dataGridView1.Columns.Add("Hizmetler", "Hizmetler");
             dataGridView1.Columns.Add("Oda Sayisi", "Oda Sayisi");
             dataGridView1.Columns.Add("Gidis Tarihi", "Gidis Tarihi");
             dataGridView1.Columns.Add("Fiyat", "Fiyat");
 
+            // Resim sütunu
+            DataGridViewImageColumn imgCol = new DataGridViewImageColumn();
+            imgCol.HeaderText = "Görsel";
+            imgCol.Name = "Gorsel";
+            imgCol.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dataGridView1.Columns.Add(imgCol);
 
-            // DataGridView'e örnek veriler ekleyelim
-            dataGridView1.Rows.Add("Azer", "Kahvaltı,Gezi Turu", "100", "10.04.2025","Günlük 500Tl");
-            dataGridView1.Rows.Add("GoldYildirim", "Kahvaltı,Akşam Yemegi, Spor", "200", "05.04.2025","Günlük 600Tl");
-            dataGridView1.Rows.Add("Hilton", "Tüm Ögünler, Gezi Turu,Kurslar ", "400", "01.04.2025","Günlük 1000Tl");
-            dataGridView1.Rows.Add("Dedeman", "Tüm Ögünler, Spor, Konferanslar", "500", "03.04.2025", "Günlük 950");
-            dataGridView1.Rows.Add("Grand", "Tüm Ögünler, Spor, Konferans, Gezi Turu", "600", "07.04.2025", "Günlük 1500");
-           
+            // Otel görsellerini yükleyip satırları ekleyelim
+            AddRow("Azer", "Kahvaltı,Gezi Turu", "100", "10.04.2025", "Günlük 500Tl", @"C:\Users\HİLAL\Masaüstü\oteller\azer");
+            AddRow("Hilton", "Tüm Ögünler, Gezi Turu,Kurslar ", "400", "01.04.2025", "Günlük 1000Tl", @"C:\Users\HİLAL\Masaüstü\oteller\hilton");
+            AddRow("Dedeman", "Tüm Ögünler, Spor, Konferanslar", "500", "03.04.2025", "Günlük 950", @"C:\Users\HİLAL\Masaüstü\oteller\dedeman");
+            AddRow("Grand", "Tüm Ögünler, Spor, Konferans, Gezi Turu", "600", "07.04.2025", "Günlük 1500", @"C:\Users\HİLAL\Masaüstü\oteller\grand");
+
+            dataGridView1.RowTemplate.Height = 100;
+        }
+
+        private void AddRow(string otel, string hizmet, string oda, string tarih, string fiyat, string resimKlasoru)
+        {
+            System.Drawing.Image resim = null;
+            try
+            {
+                string[] dosyalar = Directory.GetFiles(resimKlasoru, "*.*")
+                    .Where(f => f.EndsWith(".jpg") || f.EndsWith(".png")).ToArray();
+                if (dosyalar.Length > 0)
+                {
+                    resim = System.Drawing.Image.FromFile(dosyalar[0]);
+                    resim = new Bitmap(resim, new Size(100, 80));
+                }
+            }
+            catch
+            {
+                // Hata varsa boş bırak
+            }
+
+            dataGridView1.Rows.Add(otel, hizmet, oda, tarih, fiyat, resim);
         }
 
         private void btnPdfOlustur_Click(object sender, EventArgs e)
         {
-
             string pdfDirectory = @"C:\Users\HİLAL\Masaüstü\Otelkayıt";
             string pdfPath = Path.Combine(pdfDirectory, "Otelkayıt.pdf");
-            string resimKlasoru = @"C:\Users\HİLAL\Masaüstü\oteller"; // Ana otel klasör yolu
 
             if (!Directory.Exists(pdfDirectory))
-            {
                 Directory.CreateDirectory(pdfDirectory);
-            }
 
             Document doc = new Document(PageSize.A4, 20f, 20f, 20f, 20f);
             PdfWriter.GetInstance(doc, new FileStream(pdfPath, FileMode.Create));
             doc.Open();
 
             PdfPTable table = new PdfPTable(dataGridView1.ColumnCount);
+
+            // Renkleri tanımla
+            BaseColor kırmızı = new BaseColor(220, 20, 60); // Crimson kırmızısı
+            BaseColor beyaz = BaseColor.WHITE;
+
+            // Başlık hücreleri - kırmızı arkaplan, beyaz yazı
             foreach (DataGridViewColumn column in dataGridView1.Columns)
             {
-                table.AddCell(column.HeaderText);
+                PdfPCell baslikHucresi = new PdfPCell(new Phrase(column.HeaderText,
+                    FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, beyaz)));
+                baslikHucresi.BackgroundColor = kırmızı;
+                baslikHucresi.HorizontalAlignment = Element.ALIGN_CENTER;
+                baslikHucresi.Padding = 5;
+                table.AddCell(baslikHucresi);
             }
 
+            // Veri hücreleri - beyaz arkaplan, kırmızı yazı
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 if (!row.IsNewRow)
                 {
-                    string otelAdi = "";
-
-                    for (int i = 0; i < row.Cells.Count; i++)
+                    foreach (DataGridViewCell dgvCell in row.Cells)
                     {
-                        string cellValue = row.Cells[i].Value?.ToString() ?? "";
-                        table.AddCell(cellValue);
-
-                        if (i == 0) // Otel adı
-                            otelAdi = cellValue;
+                        string hucreMetni = dgvCell.Value?.ToString() ?? "";
+                        PdfPCell veriHucresi = new PdfPCell(new Phrase(hucreMetni,
+                            FontFactory.GetFont(FontFactory.HELVETICA, 11, kırmızı)));
+                        veriHucresi.BackgroundColor = beyaz;
+                        veriHucresi.HorizontalAlignment = Element.ALIGN_CENTER;
+                        veriHucresi.Padding = 5;
+                        table.AddCell(veriHucresi);
                     }
-
-                    // Otel klasörlerinin yolları
-                    string otelKlasoru = "";
-                    switch (otelAdi.ToLower())
-                    {
-                        case "azer":
-                            otelKlasoru = @"C:\Users\HİLAL\Masaüstü\oteller\azer";
-                            break;
-                        case "dedeman":
-                            otelKlasoru = @"C:\Users\HİLAL\Masaüstü\oteller\dedeman";
-                            break;
-                        case "goldyıldırım":
-                            otelKlasoru = @"C:\Users\HİLAL\Masaüstü\oteller\goldyıldırım";
-                            break;
-                        case "grand":
-                            otelKlasoru = @"C:\Users\HİLAL\Masaüstü\oteller\grand";
-                            break;
-                        case "hilton":
-                            otelKlasoru = @"C:\Users\HİLAL\Masaüstü\oteller\hilton";
-                            break;
-                    }
-
-                    if (Directory.Exists(otelKlasoru))
-                    {
-                        // Otel ismini başlık olarak ekleyelim
-                        Paragraph otelBaslik = new Paragraph(otelAdi, FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16f));
-                        otelBaslik.Alignment = Element.ALIGN_CENTER;
-                        doc.Add(otelBaslik);  // Otel ismini ekle
-
-                        string[] resimler = Directory.GetFiles(otelKlasoru, "*.*").Where(f => f.EndsWith(".jpg") || f.EndsWith(".png")).ToArray(); // JPG ve PNG resimlerini al
-
-                        foreach (string resim in resimler)
-                        {
-                            try
-                            {
-                                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(resim);
-                                img.ScaleToFit(400f, 300f); // Resmi boyutlandır
-                                img.Alignment = Element.ALIGN_CENTER; // Ortala
-                                doc.Add(img);  // Resmi PDF'e ekle
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine($"Resim eklerken hata: {ex.Message}");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Klasör bulunamadı: {otelKlasoru}");
-                    }
-
-                    doc.Add(table); // Tabloyu ekle
-                    table = new PdfPTable(dataGridView1.ColumnCount); // Yeni tablo başlat
                 }
             }
 
-            doc.Add(table); // Son tabloyu ekle (görsel yoksa)
+            doc.Add(table);
+            doc.Add(new Paragraph("\n"));
+
+            // Otel başlıkları kırmızı renkte
+            string[] otelAdlari = { "azer", "hilton", "dedeman", "grand" };
+            string baseImagePath = @"C:\Users\HİLAL\Masaüstü\oteller";
+
+            foreach (var otel in otelAdlari)
+            {
+                string otelKlasoru = Path.Combine(baseImagePath, otel);
+                if (Directory.Exists(otelKlasoru))
+                {
+                    Paragraph otelBaslik = new Paragraph(otel.ToUpper(),
+                        FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14f, kırmızı));
+                    otelBaslik.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(otelBaslik);
+                    doc.Add(new Paragraph("\n"));
+
+                    string[] resimler = Directory.GetFiles(otelKlasoru, "*.*")
+                        .Where(f => f.EndsWith(".jpg") || f.EndsWith(".png")).ToArray();
+
+                    foreach (string resim in resimler)
+                    {
+                        try
+                        {
+                            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(resim);
+                            img.ScaleToFit(200f, 150f);
+                            img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                            doc.Add(img);
+                            doc.Add(new Paragraph("\n"));
+                        }
+                        catch
+                        {
+                            // Hata varsa atla
+                        }
+                    }
+
+                    doc.Add(new Paragraph("\n\n"));
+                }
+            }
+
             doc.Close();
 
             MessageBox.Show("PDF başarıyla oluşturuldu! \nMasaüstü\\Otelkayıt klasörünü kontrol et.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
-        private void AddLogoToPdf(object inputPdfPath, object outputPdfPath, string logoPath)
+        private void btnPdfAc_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-        }
-
-        private void btnPdfAc_Click_1(object sender, EventArgs e)
-        {
-            string pdfPath = @"C:\Users\HİLAL\Masaüstü\Otelkayıt\Otelkayıt.pdf"; // Logolu PDF açılacak
+            string pdfPath = @"C:\Users\HİLAL\Masaüstü\Otelkayıt\Otelkayıt.pdf";
 
             if (File.Exists(pdfPath))
             {
@@ -152,17 +169,17 @@ namespace OtelRezervasyon
             }
             else
             {
-                MessageBox.Show("Hata: PDF dosyası bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("PDF bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            Form2 form2 = new Form2();
+            form2.Show();
+            this.Hide(); //Form2'yi aç
         }
-
     }
-
-
 }
+    
 

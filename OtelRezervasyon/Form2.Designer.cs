@@ -28,9 +28,11 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            button1 = new Button();
             textTelefonara = new TextBox();
             label1 = new Label();
             panel2 = new Panel();
+            Sonraki = new Button();
             textSoyad = new TextBox();
             label7 = new Label();
             button3 = new Button();
@@ -56,14 +58,26 @@
             // 
             // panel1
             // 
-            panel1.BackColor = SystemColors.ControlLight;
+            panel1.BackColor = Color.Crimson;
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(textTelefonara);
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1498, 46);
+            panel1.Size = new Size(1528, 46);
             panel1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.DarkTurquoise;
+            button1.Location = new Point(1191, 3);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 29);
+            button1.TabIndex = 21;
+            button1.Text = "Geri Dön";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // textTelefonara
             // 
@@ -83,7 +97,8 @@
             // 
             // panel2
             // 
-            panel2.BackColor = SystemColors.ControlLight;
+            panel2.BackColor = Color.Crimson;
+            panel2.Controls.Add(Sonraki);
             panel2.Controls.Add(textSoyad);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(button3);
@@ -102,14 +117,25 @@
             panel2.Controls.Add(textAd);
             panel2.Controls.Add(textid);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 446);
+            panel2.Location = new Point(0, 388);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1498, 205);
+            panel2.Size = new Size(1528, 284);
             panel2.TabIndex = 1;
+            // 
+            // Sonraki
+            // 
+            Sonraki.BackColor = Color.DarkTurquoise;
+            Sonraki.Location = new Point(767, 237);
+            Sonraki.Name = "Sonraki";
+            Sonraki.Size = new Size(94, 35);
+            Sonraki.TabIndex = 20;
+            Sonraki.Text = "Sonraki";
+            Sonraki.UseVisualStyleBackColor = false;
+            Sonraki.Click += Sonraki_Click;
             // 
             // textSoyad
             // 
-            textSoyad.Location = new Point(586, 25);
+            textSoyad.Location = new Point(488, 26);
             textSoyad.Name = "textSoyad";
             textSoyad.Size = new Size(100, 27);
             textSoyad.TabIndex = 18;
@@ -117,7 +143,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(514, 28);
+            label7.Location = new Point(414, 35);
             label7.Name = "label7";
             label7.Size = new Size(53, 20);
             label7.TabIndex = 17;
@@ -125,18 +151,19 @@
             // 
             // button3
             // 
-            button3.Location = new Point(1428, 168);
+            button3.BackColor = Color.DarkTurquoise;
+            button3.Location = new Point(665, 237);
             button3.Name = "button3";
             button3.Size = new Size(70, 35);
             button3.TabIndex = 16;
             button3.Text = "Kayıt";
-            button3.UseVisualStyleBackColor = true;
+            button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(1232, 13);
+            label6.Location = new Point(627, 65);
             label6.Name = "label6";
             label6.Size = new Size(49, 20);
             label6.TabIndex = 15;
@@ -144,9 +171,9 @@
             // 
             // textEmail
             // 
-            textEmail.Location = new Point(1308, 6);
+            textEmail.Location = new Point(698, 65);
             textEmail.Name = "textEmail";
-            textEmail.Size = new Size(163, 27);
+            textEmail.Size = new Size(154, 27);
             textEmail.TabIndex = 14;
             // 
             // label5
@@ -161,7 +188,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(887, 17);
+            label4.Location = new Point(615, 36);
             label4.Name = "label4";
             label4.Size = new Size(61, 20);
             label4.TabIndex = 12;
@@ -170,7 +197,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(213, 31);
+            label3.Location = new Point(186, 35);
             label3.Name = "label3";
             label3.Size = new Size(35, 20);
             label3.TabIndex = 11;
@@ -179,7 +206,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 24);
+            label2.Location = new Point(12, 29);
             label2.Name = "label2";
             label2.Size = new Size(25, 20);
             label2.TabIndex = 10;
@@ -187,42 +214,46 @@
             // 
             // btnGüncelleştrirme
             // 
-            btnGüncelleştrirme.Location = new Point(475, 158);
+            btnGüncelleştrirme.BackColor = Color.DarkTurquoise;
+            btnGüncelleştrirme.Location = new Point(441, 191);
             btnGüncelleştrirme.Name = "btnGüncelleştrirme";
-            btnGüncelleştrirme.Size = new Size(123, 47);
+            btnGüncelleştrirme.Size = new Size(116, 47);
             btnGüncelleştrirme.TabIndex = 7;
             btnGüncelleştrirme.Text = "Güncelleştirme";
-            btnGüncelleştrirme.UseVisualStyleBackColor = true;
+            btnGüncelleştrirme.UseVisualStyleBackColor = false;
             btnGüncelleştrirme.Click += btnGüncelleştrirme_Click;
             // 
             // btnListele
             // 
-            btnListele.Location = new Point(322, 157);
+            btnListele.BackColor = Color.DarkTurquoise;
+            btnListele.Location = new Point(300, 190);
             btnListele.Name = "btnListele";
             btnListele.Size = new Size(94, 48);
             btnListele.TabIndex = 6;
             btnListele.Text = "Listeleme";
-            btnListele.UseVisualStyleBackColor = true;
+            btnListele.UseVisualStyleBackColor = false;
             btnListele.Click += btnListele_Click;
             // 
             // btnSil
             // 
-            btnSil.Location = new Point(188, 160);
+            btnSil.BackColor = Color.DarkTurquoise;
+            btnSil.Location = new Point(167, 193);
             btnSil.Name = "btnSil";
             btnSil.Size = new Size(94, 45);
             btnSil.TabIndex = 5;
             btnSil.Text = "Silme";
-            btnSil.UseVisualStyleBackColor = true;
+            btnSil.UseVisualStyleBackColor = false;
             btnSil.Click += btnSil_Click;
             // 
             // btnEkle
             // 
-            btnEkle.Location = new Point(59, 157);
+            btnEkle.BackColor = Color.DarkTurquoise;
+            btnEkle.Location = new Point(59, 193);
             btnEkle.Name = "btnEkle";
             btnEkle.Size = new Size(94, 48);
             btnEkle.TabIndex = 4;
             btnEkle.Text = "Ekle";
-            btnEkle.UseVisualStyleBackColor = true;
+            btnEkle.UseVisualStyleBackColor = false;
             btnEkle.Click += btnEkle_Click;
             // 
             // textAdres
@@ -230,50 +261,52 @@
             textAdres.Location = new Point(59, 62);
             textAdres.Multiline = true;
             textAdres.Name = "textAdres";
-            textAdres.Size = new Size(1000, 86);
+            textAdres.Size = new Size(498, 125);
             textAdres.TabIndex = 3;
             // 
             // textTelefon
             // 
-            textTelefon.Location = new Point(975, 17);
+            textTelefon.Location = new Point(698, 26);
             textTelefon.Name = "textTelefon";
-            textTelefon.Size = new Size(163, 27);
+            textTelefon.Size = new Size(148, 27);
             textTelefon.TabIndex = 2;
             // 
             // textAd
             // 
-            textAd.Location = new Point(254, 28);
+            textAd.Location = new Point(227, 28);
             textAd.Name = "textAd";
             textAd.Size = new Size(165, 27);
             textAd.TabIndex = 1;
             // 
             // textid
             // 
-            textid.Location = new Point(43, 28);
+            textid.Location = new Point(33, 28);
             textid.Name = "textid";
-            textid.Size = new Size(151, 27);
+            textid.Size = new Size(135, 27);
             textid.TabIndex = 0;
             // 
             // dataGridView1
             // 
+            dataGridView1.BackgroundColor = Color.WhiteSmoke;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 46);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1498, 400);
+            dataGridView1.Size = new Size(1528, 342);
             dataGridView1.TabIndex = 2;
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1498, 651);
+            ClientSize = new Size(1528, 672);
             Controls.Add(dataGridView1);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Form2";
             Text = "Form2";
+            Load += Form2_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -312,8 +345,8 @@
         private DataGridView dataGridView1;
         private Label label7;
         private TextBox textSoyad;
-      
-        
-
+        private PictureBox pictureBox1;
+        private Button Sonraki;
+        private Button button1;
     }
 }

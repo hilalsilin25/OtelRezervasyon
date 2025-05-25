@@ -34,8 +34,8 @@
             textBox1 = new TextBox();
             textBox2 = new TextBox();
             btngiriş = new Button();
-            pictureBox1 = new PictureBox();
             label4 = new Label();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -85,24 +85,15 @@
             // 
             // btngiriş
             // 
+            btngiriş.BackColor = Color.DarkTurquoise;
+            btngiriş.ForeColor = SystemColors.ControlText;
             btngiriş.Location = new Point(459, 159);
             btngiriş.Name = "btngiriş";
             btngiriş.Size = new Size(94, 29);
             btngiriş.TabIndex = 5;
             btngiriş.Text = "GİRİŞ ";
-            btngiriş.UseVisualStyleBackColor = true;
+            btngiriş.UseVisualStyleBackColor = false;
             btngiriş.Click += btngiriş_Click;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.icon;
-            pictureBox1.Location = new Point(1, 9);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(261, 214);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 6;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // label4
             // 
@@ -112,14 +103,28 @@
             label4.Size = new Size(50, 20);
             label4.TabIndex = 7;
             label4.Text = "label4";
+            label4.Click += label4_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = SystemColors.ButtonFace;
+            pictureBox1.Image = Properties.Resources._12366377;
+            pictureBox1.Location = new Point(2, -3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(249, 239);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 6;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(760, 366);
-            Controls.Add(label4);
+            BackColor = Color.Crimson;
+            ClientSize = new Size(1311, 517);
             Controls.Add(pictureBox1);
+            Controls.Add(label4);
             Controls.Add(btngiriş);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
